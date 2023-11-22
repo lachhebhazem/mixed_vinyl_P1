@@ -15,7 +15,7 @@ class VinylMix
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $string = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -32,20 +32,33 @@ class VinylMix
     {
         $this->createdAt = new \DateTimeImmutable();
     }
+    #[ORM\Column]
+    private ?int $votes = null;
+    public function getVotes(): ?int
+    {
+        return $this->votes;
+    }
+
+    public function setVotes(int $votes): static
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getString(): ?string
+    public function getTitle(): ?string
     {
-        return $this->string;
+        return $this->title;
     }
 
-    public function setString(string $string): static
+    public function setTitle(string $string): static
     {
-        $this->string = $string;
+        $this->title = $string;
 
         return $this;
     }
