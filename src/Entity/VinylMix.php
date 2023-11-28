@@ -9,9 +9,23 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VinylMixRepository::class)]
 class VinylMix
 {
+    public function getVotesString(): string
+    {
+        $prefix = ($this->votes === 0) ? '' : (($this->votes >= 0) ? '+' : '-');
+        return sprintf('%s %d', $prefix, abs($this->votes));
+    }
+    public function getImageUrl(int $width): string
+    {
+        return sprintf(
+            'https://picsum.photos/id/%d/%d',
+            ($this->getId() + 50) % 1000, // number between 0 and 1000, based on the id
+            $width
+        );
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -33,7 +47,7 @@ class VinylMix
         $this->createdAt = new \DateTimeImmutable();
     }
     #[ORM\Column]
-    private ?int $votes = null;
+    private ?int $votes = 0;
     public function getVotes(): ?int
     {
         return $this->votes;
@@ -56,13 +70,12 @@ class VinylMix
         return $this->title;
     }
 
-    public function setTitle(string $string): static
+    public function setTitle(string $title): static
     {
-        $this->title = $string;
+        $this->title = $title;
 
         return $this;
     }
-
     public function getDescription(): ?string
     {
         return $this->description;
