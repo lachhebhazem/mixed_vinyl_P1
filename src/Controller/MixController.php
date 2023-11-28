@@ -30,4 +30,12 @@ class MixController extends AbstractController
             $mix->getTrackCount()
         ));
     }
+    #[Route('/mix/{id}', name: 'app_mix_show')]
+    public function show($id, VinylMixRepository $mixRepository): Response
+    {
+        $mix = $mixRepository->find($id);
+        return $this->render('mix/show.html.twig', [
+            'mix' => $mix,
+        ]);
+    }
 }
