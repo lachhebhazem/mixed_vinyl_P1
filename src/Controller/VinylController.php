@@ -8,8 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class VinylController extends AbstractController
 {
+
     #[Route('/', name: 'app_homepage')]
     public function homepage(): Response
     {
@@ -32,6 +34,7 @@ class VinylController extends AbstractController
     {
         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
         $mixes = $mixRepository->findAll();
+        $mixes = $mixRepository->findAllOrderedByVotes();
         return $this->render('vinyl/browse.html.twig', [
             'genre' => $genre,
             'mixes' => $mixes,
