@@ -34,7 +34,7 @@ class MixController extends AbstractController
     #[Route('/mix/{id}/vote', name: 'app_mix_vote', methods: ['POST'])]
     public function show(VinylMix $mix): Response
     {
-        return $this->render('mix/show.html.twig', [
+        return $this->render('show.html.twig', [
             'mix' => $mix,
         ]);
     }
