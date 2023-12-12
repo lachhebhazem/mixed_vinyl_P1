@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez nous
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Contactez-nous</h1>
+
+		{# Display flash messages if any #}
+		{% for flashMessage in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ flashMessage }}
+			</div>
+		{% endfor %}
+
+		{# Display form errors if any #}
+		{% if form_errors(form) %}
+			<div class="alert alert-danger" role="alert">
+				{{ form_errors(form) }}
+			</div>
+		{% endif %}
+
+		{{ form_start(form) }}
+		<div class="mb-3">
+			{{ form_row(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Your Name'}}) }}
+		</div>
+		<div class="mb-3">
+			{{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Your Email'}}) }}
+		</div>
+		<div class="mb-3">
+			{{ form_row(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Your Message'}}) }}
+		</div>
+		<button type="submit" class="btn btn-primary">{{ button_label|default('Send Message') }}</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
